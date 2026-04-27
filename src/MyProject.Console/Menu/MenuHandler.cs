@@ -5,27 +5,26 @@ using System.Collections.Generic;
 
 public class MenuHandler
 {
-    private readonly Dictionary<int, Action> _actions = new();
+    private readonly Dictionary<int, (string, Action)> _actions = new();
 
-    public void Register(int key, Action action)
+    public void Register(int key, string title, Action action)
     {
-        _actions[key] = action;
-    }
-
-    private void ShowMenu()
-    {
-        Console.WriteLine("\nMENU");
-        Console.WriteLine("1. Rent car");
-        Console.WriteLine("0. Exit");
+        _actions[key] = (title, action);
     }
 
     public void Run()
     {
         while (true)
         {
-            ShowMenu();
+            Console.WriteLine("\n MENU ");
 
-            Console.Write("Choose option: ");
+            foreach (var item in _actions)
+            {
+                Console.WriteLine($"{item.Key}. {item.Value.Item1}");
+            }
+
+            Console.WriteLine("0. Exit");
+
             var input = Console.ReadLine();
 
             if (!int.TryParse(input, out int choice))
@@ -35,25 +34,18 @@ public class MenuHandler
             }
 
             if (choice == 0)
-            {
-                Console.WriteLine("Bye!");
                 break;
-            }
 
             if (_actions.TryGetValue(choice, out var action))
             {
                 try
                 {
-                    action.Invoke();
+                    action.Item2.Invoke();
                 }
                 catch (Exception ex)
                 {
                     Console.WriteLine($"Error: {ex.Message}");
                 }
-            }
-            else
-            {
-                Console.WriteLine("Option not found");
             }
         }
     }

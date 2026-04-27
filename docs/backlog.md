@@ -3,9 +3,12 @@
 ## Iteration 1
 - базова оренда
 
+
 ## Iteration 2
-- persistence
-- LINQ
+- Add persistence
+- Add LINQ queries
+- Extend tests
+- Improve business logic
 
 ## Iteration 3
 - тести

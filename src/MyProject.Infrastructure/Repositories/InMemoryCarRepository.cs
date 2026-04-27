@@ -1,5 +1,6 @@
 using MyProject.Domain.Entities;
 using MyProject.Domain.Interfaces;
+using System.Linq;
 
 namespace MyProject.Infrastructure.Repositories;
 
@@ -20,5 +21,28 @@ public class InMemoryCarRepository : ICarRepository
     public List<Car> GetAll()
     {
         return _cars.Values.ToList();
+    }
+
+
+    public List<Car> GetAvailable()
+    {
+        return _cars.Values
+            .Where(c => c.IsAvailable)
+            .OrderBy(c => c.Model)
+            .ToList();
+    }
+
+    public List<Car> GetRented()
+    {
+        return _cars.Values
+            .Where(c => !c.IsAvailable)
+            .ToList();
+    }
+
+    public Car? FindByModel(string model)
+    {
+        return _cars.Values
+            .FirstOrDefault(c =>
+                c.Model.Contains(model, StringComparison.OrdinalIgnoreCase));
     }
 }

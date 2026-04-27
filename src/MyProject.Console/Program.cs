@@ -2,10 +2,13 @@
 using MyProject.Domain.Entities;
 using MyProject.Infrastructure.Repositories;
 using MyProject.Console.Menu;
-using MyProject.Console.Handlers;
+using MyProject.Presentation.Console.Handlers;
 
-var repo = new InMemoryCarRepository();
-var service = new RentalService(repo);
+
+var carRepo = new InMemoryCarRepository();
+var rentalRepo = new InMemoryRentalRepository();
+
+var service = new RentalService(carRepo, rentalRepo);
 
 var cars = new List<Car>
 {
@@ -30,13 +33,16 @@ var cars = new List<Car>
 };
 
 foreach (var car in cars)
-{
-    repo.Add(car);
-}
+    carRepo.Add(car);
 
-var handler = new RentCarHandler(service, repo);
+var rentHandler = new RentCarHandler(service, carRepo);
+var returnHandler = new ReturnCarHandler(service);
+var availableHandler = new AvailableCarsHandler(carRepo);
+
 var menu = new MenuHandler();
 
-menu.Register(1, handler.Handle);
+menu.Register(1, "Rent car", rentHandler.Handle);
+menu.Register(2, "Return car", returnHandler.Handle);
+menu.Register(3, "Show available cars", availableHandler.Handle);
 
 menu.Run();
