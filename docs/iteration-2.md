@@ -1,51 +1,67 @@
 # Iteration 2
 
-## Added
-- Persistence (JSON)
-- LINQ queries
-- Extended tests
-- New use cases
+## Додано
 
-## Use Cases
-1. Rent car
-2. Return car
-3. View available cars
+- Персистентність (JSON)
+- LINQ-запити
+- Розширені тести
+- Нові сценарії використання
 
-## Improvements
-- Business logic added
-- Better error handling
 
-## Risks
-- File storage issues
+## Сценарії використання
 
-## What was implemented
-- Added persistence using JSON file storage
-- Extended use cases: rent car, return car, view available cars
-- Introduced LINQ queries for filtering and searching cars
-- Added rental history persistence
-- Improved separation of concerns in architecture
+1. Оренда автомобіля  
+2. Повернення автомобіля  
+3. Перегляд доступних автомобілів  
 
-## Use Cases
-1. Rent a car with availability check
-2. Return a rented car
-3. View available cars using LINQ filtering
 
-## Persistence
-- Rentals are stored in rentals.json
-- Data is loaded on application startup
-- Data is saved after each rental operation
+## Покращення
 
-## Architecture improvements
-- Added File-based persistence layer
-- Introduced LINQ in repository layer
-- Improved service-layer responsibility separation
+- Додано бізнес-логіку  
+- Краще оброблення помилок  
 
-## Testing
-- Unit tests for domain entities
-- Service tests for rental logic
-- Negative scenarios covered (double rent, invalid input)
 
-## Next iteration goals
-- Add analytics (most rented cars)
-- Improve error handling with Result pattern
-- Add advanced LINQ reporting queries
+## Ризики
+
+- Проблеми з файловим сховищем  
+
+## Що було реалізовано
+
+- Додано збереження даних у JSON-файл  
+- Розширено сценарії використання: оренда авто, повернення авто, перегляд доступних авто  
+- Впроваджено LINQ-запити для фільтрації та пошуку автомобілів  
+- Додано збереження історії оренди  
+- Покращено розподіл відповідальностей в архітектурі  
+
+
+## Сценарії використання
+
+1. Оренда автомобіля з перевіркою доступності  
+2. Повернення орендованого автомобіля  
+3. Перегляд доступних автомобілів з використанням LINQ-фільтрації  
+
+
+## Персистентність
+
+- Оренди зберігаються у файлі `rentals.json`  
+- Дані завантажуються при запуску застосунку  
+- Дані зберігаються після кожної операції оренди  
+
+## Покращення архітектури
+
+- Додано файловий рівень збереження даних  
+- Впроваджено LINQ у шарі репозиторію  
+- Покращено розподіл відповідальності в сервісному шарі  
+
+
+## Тестування
+
+- Юніт-тести для доменних сутностей  
+- Тести сервісної логіки оренди  
+- Покрито негативні сценарії (подвійна оренда, некоректні дані)  
+
+## Цілі наступної ітерації
+
+- Додати аналітику (найчастіше орендовані авто)  
+- Покращити обробку помилок через Result pattern  
+- Додати розширені LINQ-звіти  

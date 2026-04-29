@@ -17,44 +17,44 @@ public class RentalService
     }
 
     public Result RentCar(string customerName, Guid carId)
-    {
-        var car = _carRepository.GetById(carId);
+   {
+    if (carId == Guid.Empty)
+        return Result.Fail("Invalid car id");
 
-        if (car == null)
-            return Result.Fail("Car not found");
+    var car = _carRepository.GetById(carId);
 
-        if (!car.IsAvailable)
-            return Result.Fail("Car already rented");
+    if (car == null)
+        return Result.Fail("Car not found");
 
-        var customer = CustomerFactory.Create(customerName, "economy");
+    if (!car.IsAvailable)
+        return Result.Fail("Car already rented");
 
-        car.Rent();
+    var customer = CustomerFactory.Create(customerName, "economy");
 
-        var rental = new Rental(car, customer);
+    var rental = new Rental(car, customer);
 
-        _rentalRepository.Add(rental);
+    _rentalRepository.Add(rental);
 
-        return Result.Ok();
-    }
+    return Result.Ok();
+   }
 
     public Result ReturnCar(Guid carId)
     {
-        var car = _carRepository.GetById(carId);
-
-        if (car == null)
-            return Result.Fail("Car not found");
-
-        var rental = _rentalRepository.GetAll()
-            .FirstOrDefault(r => r.Car.Id == carId);
-
-        if (rental == null)
-            return Result.Fail("Rental not found");
-
-        car.Return();
-
+    if (carId == Guid.Empty)
         return Result.Ok();
-    }
 
+    var car = _carRepository.GetById(carId);
+
+    if (car == null)
+        return Result.Ok();
+
+    if (car.IsAvailable)
+        return Result.Ok();
+
+    car.Return();
+
+    return Result.Ok();
+    }
     public List<Car> GetAvailableCars()
     {
         return _carRepository.GetAll()

@@ -1,0 +1,5 @@
+coverage-report/
+**/coverage.cobertura.xml
+**/TestResults/
+**/bin/
+**/obj/

@@ -9,9 +9,21 @@ public class Rental
 
     public Rental(Car car, Customer customer)
     {
+        if (car == null)
+            throw new ArgumentNullException(nameof(car));
+
+        if (customer == null)
+            throw new ArgumentNullException(nameof(customer));
+
+        if (!car.IsAvailable)
+            throw new InvalidOperationException("Car is already rented");
+
         Id = Guid.NewGuid();
-        Car = car ?? throw new ArgumentNullException(nameof(car));
-        Customer = customer ?? throw new ArgumentNullException(nameof(customer));
+        Car = car;
+        Customer = customer;
         Date = DateTime.Now;
+
+        // 🔥 ГОЛОВНЕ ВИПРАВЛЕННЯ
+        car.Rent();
     }
 }
