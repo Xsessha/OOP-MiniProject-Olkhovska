@@ -23,7 +23,6 @@ public class Rental
         Customer = customer;
         Date = DateTime.Now;
 
-        // 🔥 ГОЛОВНЕ ВИПРАВЛЕННЯ
         car.Rent();
     }
 }
